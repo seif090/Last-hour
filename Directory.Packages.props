@@ -12,10 +12,28 @@
     <!-- ASP.NET Core -->
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.18" />
 
+    <!-- Data / persistence -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.18" />
+
+    <!-- Dependency injection (10.0.0 matches the resolved graph: Serilog.AspNetCore 10.0.0 requires DI >= 10.0.0) -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
+
     <!-- Diagnostics / structured logging -->
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1" />
     <PackageVersion Include="Serilog.Sinks.Seq" Version="9.1.0" />
+
+    <!-- Messaging / CQRS -->
+    <PackageVersion Include="MediatR" Version="12.5.0" />
+    <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
+
+    <!-- Validation -->
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
 
     <!-- Static analysis -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />

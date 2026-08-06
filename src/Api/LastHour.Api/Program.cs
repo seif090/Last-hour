@@ -1,3 +1,4 @@
+using LastHour.BuildingBlocks.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
@@ -19,6 +20,8 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddOpenApi();
     builder.Services.AddHealthChecks();
+    builder.Services.AddCqrs();
+    builder.Services.AddPerformanceBehaviorOptions(builder.Configuration);
 
     var app = builder.Build();
 

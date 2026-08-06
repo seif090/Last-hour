@@ -1,6 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <!-- Full MediatR package: MediatR.Contracts (IRequest) lacks IRequestHandler, which the
+         CQRS handler contracts derive from. Application uses the interface types only. -->
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LastHour.BuildingBlocks.Architecture\LastHour.BuildingBlocks.Architecture.csproj" />
     <ProjectReference Include="..\LastHour.BuildingBlocks.SharedKernel\LastHour.BuildingBlocks.SharedKernel.csproj" />
   </ItemGroup>

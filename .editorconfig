@@ -132,3 +132,11 @@ file_header_template = unset
 
 # StyleCop: we deliberately do not use file headers (see stylecop.json)
 dotnet_diagnostic.SA1633.severity = none
+# StyleCop: conflicts with repo conventions above (dotnet_style_qualification_* = false)
+dotnet_diagnostic.SA1101.severity = none
+# StyleCop: conflicts with repo private-field naming (underscore prefix)
+dotnet_diagnostic.SA1309.severity = none
+
+# Test files: underscore-separated method names are conventional for xunit tests
+[tests/**/*.cs]
+dotnet_diagnostic.CA1707.severity = none

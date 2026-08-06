@@ -1,0 +1,51 @@
+using LastHour.BuildingBlocks.SharedKernel.Domain;
+
+namespace LastHour.BuildingBlocks.Application.Contracts;
+
+/// <summary>
+/// Defines read-only queries over an entity type. Implementations perform queries against
+/// the underlying data store without tracking or modifying state.
+/// </summary>
+/// <typeparam name="TEntity">The type of the queried entity.</typeparam>
+/// <typeparam name="TId">The type of the entity identifier.</typeparam>
+public interface IReadRepository<TEntity, TId>
+    where TEntity : IEntity<TId>
+    where TId : IEquatable<TId>
+{
+    /// <summary>
+    /// Retrieves the entity with the specified identifier, or <see langword="null"/> when none exists.
+    /// </summary>
+    /// <param name="id">The entity identifier to look up.</param>
+    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+    /// <returns>The matching entity, or <see langword="null"/> when not found.</returns>
+    Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all entities of the type.
+    /// </summary>
+    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+    /// <returns>A read-only list of all entities.</returns>
+    Task<IReadOnlyList<TEntity>> ListAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Determines whether any entity of the type exists.
+    /// </summary>
+    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+    /// <returns><see langword="true"/> when at least one entity exists; otherwise <see langword="false"/>.</returns>
+    Task<bool> AnyAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Determines whether an entity with the specified identifier exists.
+    /// </summary>
+    /// <param name="id">The entity identifier to look up.</param>
+    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+    /// <returns><see langword="true"/> when an entity with the identifier exists; otherwise <see langword="false"/>.</returns>
+    Task<bool> ExistsAsync(TId id, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Counts the number of entities of the type.
+    /// </summary>
+    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+    /// <returns>The number of entities.</returns>
+    Task<int> CountAsync(CancellationToken cancellationToken = default);
+}
