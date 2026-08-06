@@ -1,0 +1,26 @@
+# Build context is the repository root.
+# Keep build context small and avoid leaking secrets into image layers.
+
+**/bin
+**/obj
+.git
+.gitignore
+.github
+.vs
+.vscode
+.claude
+*.user
+*.suo
+logs
+TestResults
+artifacts
+
+# Local environment files must never be copied into images.
+.env
+.env.*
+!.env.example
+
+# The docker folder is the build tooling itself, not part of the image.
+docker
+docs
+README.md

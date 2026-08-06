@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- Web SDK already sets UserSecretsId; nothing extra needed. -->
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.Seq" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\LastHour.BuildingBlocks.Application\LastHour.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\LastHour.BuildingBlocks.Architecture\LastHour.BuildingBlocks.Architecture.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\LastHour.BuildingBlocks.Contracts\LastHour.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\LastHour.BuildingBlocks.Infrastructure\LastHour.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\LastHour.BuildingBlocks.SharedKernel\LastHour.BuildingBlocks.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Modules\Administration\LastHour.Modules.Administration\LastHour.Modules.Administration.csproj" />
+    <ProjectReference Include="..\..\Modules\Analytics\LastHour.Modules.Analytics\LastHour.Modules.Analytics.csproj" />
+    <ProjectReference Include="..\..\Modules\Catalog\LastHour.Modules.Catalog\LastHour.Modules.Catalog.csproj" />
+    <ProjectReference Include="..\..\Modules\Identity\LastHour.Modules.Identity\LastHour.Modules.Identity.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventory\LastHour.Modules.Inventory\LastHour.Modules.Inventory.csproj" />
+    <ProjectReference Include="..\..\Modules\Merchant\LastHour.Modules.Merchant\LastHour.Modules.Merchant.csproj" />
+    <ProjectReference Include="..\..\Modules\Notifications\LastHour.Modules.Notifications\LastHour.Modules.Notifications.csproj" />
+    <ProjectReference Include="..\..\Modules\Offers\LastHour.Modules.Offers\LastHour.Modules.Offers.csproj" />
+    <ProjectReference Include="..\..\Modules\Ordering\LastHour.Modules.Ordering\LastHour.Modules.Ordering.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\LastHour.Modules.Payments\LastHour.Modules.Payments.csproj" />
+    <ProjectReference Include="..\..\Modules\Platform\LastHour.Modules.Platform\LastHour.Modules.Platform.csproj" />
+  </ItemGroup>
+
+</Project>

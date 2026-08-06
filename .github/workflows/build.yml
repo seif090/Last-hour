@@ -1,0 +1,54 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9 (global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore LastHour.Backend.sln
+
+      - name: Build
+        run: dotnet build LastHour.Backend.sln --no-restore --configuration Release
+
+      - name: Verify code style
+        run: dotnet format LastHour.Backend.sln --verify-no-changes --no-restore
+
+      - name: Test
+        run: dotnet test LastHour.Backend.sln --no-build --configuration Release --logger trx --results-directory TestResults --collect:"XPlat Code Coverage"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults
+          if-no-files-found: ignore
+
+      - name: Publish API
+        run: dotnet publish src/Api/LastHour.Api/LastHour.Api.csproj --configuration Release --no-restore --output publish
+
+      - name: Upload API artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-publish
+          path: publish
+          if-no-files-found: error

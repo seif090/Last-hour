@@ -1,0 +1,66 @@
+## .NET / Visual Studio
+bin/
+obj/
+out/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+*.pfx
+*.snupkg
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.lock.json
+
+## Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## ASP.NET Core
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+*.secrets.json
+
+## Coverage / Test results
+TestResults/
+coverage*/
+*.coverage
+*.coveragexml
+
+## Logs
+*.log
+logs/
+*.txt
+
+## OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+## Docker
+.docker/
+docker-compose.override.yml
+.env
+.env.*
+!.env.example
+
+## AI context caches
+.ai/cache/

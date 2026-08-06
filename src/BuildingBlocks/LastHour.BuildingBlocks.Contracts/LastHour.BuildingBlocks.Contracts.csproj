@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\LastHour.BuildingBlocks.Application\LastHour.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\LastHour.BuildingBlocks.Architecture\LastHour.BuildingBlocks.Architecture.csproj" />
+    <ProjectReference Include="..\LastHour.BuildingBlocks.SharedKernel\LastHour.BuildingBlocks.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

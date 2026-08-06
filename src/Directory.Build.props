@@ -1,0 +1,21 @@
+<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\Directory.Build.props" />
+
+  <!--
+    Properties applied to every project under src/ (API, building blocks, modules).
+
+    StyleCop.Analyzers is referenced centrally so the analysis settings live
+    in exactly one place (stylecop.json at the repo root) and no src project
+    can forget to opt in. Test projects deliberately do not reference it.
+  -->
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+</Project>
