@@ -1,5 +1,10 @@
-using LastHour.BuildingBlocks.Infrastructure.DependencyInjection;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using LastHour.Api.Caching.OutputCache;
+using LastHour.Api.Compression;
+using LastHour.Api.DependencyInjection;
+using LastHour.Api.Endpoints;
+using LastHour.Api.Middleware;
+using LastHour.Api.OpenApi;
+using LastHour.Api.RateLimiting;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -16,31 +21,25 @@ try
             .ReadFrom.Services(services)
             .Enrich.FromLogContext());
 
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddOpenApi();
-    builder.Services.AddHealthChecks();
-    builder.Services.AddCqrs();
-    builder.Services.AddPerformanceBehaviorOptions(builder.Configuration);
+    builder.Services.AddLastHourApi(builder.Configuration);
 
     var app = builder.Build();
 
+    app.UseLastHourExceptionMiddleware();
+
     if (app.Environment.IsDevelopment())
     {
-        app.MapOpenApi();
+        app.UseLastHourSwagger();
     }
 
     app.UseHttpsRedirection();
+    app.UseLastHourResponseCompression();
     app.UseSerilogRequestLogging();
+    app.UseRouting();
+    app.UseLastHourRateLimiting();
+    app.UseLastHourOutputCache();
 
-    app.MapGet("/", () => Results.Ok(new { service = "LastHour.Api", status = "ready" }))
-       .WithName("Root");
-
-    app.MapControllers();
-
-    app.MapHealthChecks("/health");
-    app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
-    app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = _ => true });
+    app.MapLastHourEndpoints();
 
     app.Run();
 }
