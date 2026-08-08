@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using LastHour.Api.Tests.Support;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LastHour.Api.Tests.Endpoints;
@@ -9,7 +10,7 @@ namespace LastHour.Api.Tests.Endpoints;
 /// the system endpoints respond as contracted.
 /// </summary>
 [Collection("ApiEndpoints")]
-public class SystemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
+public class SystemEndpointsTests : IClassFixture<LastHourApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -17,7 +18,7 @@ public class SystemEndpointsTests : IClassFixture<WebApplicationFactory<Program>
     /// Initializes a new instance of the <see cref="SystemEndpointsTests"/> class.
     /// </summary>
     /// <param name="factory">The shared API host factory provided by xUnit.</param>
-    public SystemEndpointsTests(WebApplicationFactory<Program> factory)
+    public SystemEndpointsTests(LastHourApiFactory factory)
     {
         _factory = factory;
     }
@@ -37,13 +38,13 @@ public class SystemEndpointsTests : IClassFixture<WebApplicationFactory<Program>
     }
 
     [Fact]
-    public async Task Get_Health_ReturnsOk()
+    public async Task Get_Health_WithDatabaseUnavailable_ReturnsServiceUnavailable()
     {
         HttpClient client = _factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync("/health");
 
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
     }
 
     [Fact]
@@ -54,6 +55,16 @@ public class SystemEndpointsTests : IClassFixture<WebApplicationFactory<Program>
         HttpResponseMessage response = await client.GetAsync("/health/live");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Get_Readiness_WithDatabaseUnavailable_ReturnsServiceUnavailable()
+    {
+        HttpClient client = _factory.CreateClient();
+
+        HttpResponseMessage response = await client.GetAsync("/health/ready");
+
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
     }
 
     [Fact]

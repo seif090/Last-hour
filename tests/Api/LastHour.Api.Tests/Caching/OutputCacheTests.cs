@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Headers;
+using LastHour.Api.Tests.Support;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LastHour.Api.Tests.Caching;
@@ -10,7 +11,7 @@ namespace LastHour.Api.Tests.Caching;
 /// carry credentials are never cached by the framework default policy.
 /// </summary>
 [Collection("ApiEndpoints")]
-public class OutputCacheTests : IClassFixture<WebApplicationFactory<Program>>
+public class OutputCacheTests : IClassFixture<LastHourApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -18,7 +19,7 @@ public class OutputCacheTests : IClassFixture<WebApplicationFactory<Program>>
     /// Initializes a new instance of the <see cref="OutputCacheTests"/> class.
     /// </summary>
     /// <param name="factory">The shared API host factory provided by xUnit.</param>
-    public OutputCacheTests(WebApplicationFactory<Program> factory)
+    public OutputCacheTests(LastHourApiFactory factory)
     {
         _factory = factory;
     }

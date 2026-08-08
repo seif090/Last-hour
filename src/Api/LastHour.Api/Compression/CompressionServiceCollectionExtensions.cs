@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Options;
 
 namespace LastHour.Api.Compression;
 
@@ -27,7 +28,10 @@ public static class CompressionServiceCollectionExtensions
         ResponseCompressionSettings settings =
             configuration.GetSection(ResponseCompressionSettings.SectionName).Get<ResponseCompressionSettings>() ?? new ResponseCompressionSettings();
 
-        services.Configure<ResponseCompressionSettings>(configuration.GetSection(ResponseCompressionSettings.SectionName));
+        services.AddOptions<ResponseCompressionSettings>()
+            .Bind(configuration.GetSection(ResponseCompressionSettings.SectionName))
+            .ValidateOnStart();
+        services.AddSingleton<IValidateOptions<ResponseCompressionSettings>, ResponseCompressionSettingsValidator>();
 
         if (settings.Enabled)
         {

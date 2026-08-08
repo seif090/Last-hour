@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using LastHour.Api.Tests.Support;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LastHour.Api.Tests.Middleware;
@@ -9,7 +10,7 @@ namespace LastHour.Api.Tests.Middleware;
 /// when none is supplied, echoes the id on every response and surfaces it in error responses.
 /// </summary>
 [Collection("ApiEndpoints")]
-public class CorrelationIdMiddlewareTests : IClassFixture<WebApplicationFactory<Program>>
+public class CorrelationIdMiddlewareTests : IClassFixture<LastHourApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -17,7 +18,7 @@ public class CorrelationIdMiddlewareTests : IClassFixture<WebApplicationFactory<
     /// Initializes a new instance of the <see cref="CorrelationIdMiddlewareTests"/> class.
     /// </summary>
     /// <param name="factory">The shared API host factory provided by xUnit.</param>
-    public CorrelationIdMiddlewareTests(WebApplicationFactory<Program> factory)
+    public CorrelationIdMiddlewareTests(LastHourApiFactory factory)
     {
         _factory = factory;
     }

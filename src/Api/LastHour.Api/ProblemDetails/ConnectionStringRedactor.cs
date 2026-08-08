@@ -8,11 +8,11 @@ namespace LastHour.Api.ProblemDetails;
 /// </summary>
 public static class ConnectionStringRedactor
 {
-    private static readonly Regex ConnectionStringReference = new (
+    private static readonly Regex ConnectionStringReference = new Regex(
         @"\bconnection\s*string\s*[:=][^\r\n]*",
         RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-    private static readonly Regex SecretPair = new (
+    private static readonly Regex SecretPair = new Regex(
         @"\b(password|pwd|user\s?id|user\s?name|access\s?token|api\s?key|secret)\s*=\s*[^;\r\n]*",
         RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 

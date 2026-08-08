@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using LastHour.Api.Tests.Support;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LastHour.Api.Tests.Endpoints;
@@ -9,7 +10,7 @@ namespace LastHour.Api.Tests.Endpoints;
 /// Exercises the URL segment API versioning contract and the per-version Swagger documents.
 /// </summary>
 [Collection("ApiEndpoints")]
-public class ApiVersioningTests : IClassFixture<WebApplicationFactory<Program>>
+public class ApiVersioningTests : IClassFixture<LastHourApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -17,7 +18,7 @@ public class ApiVersioningTests : IClassFixture<WebApplicationFactory<Program>>
     /// Initializes a new instance of the <see cref="ApiVersioningTests"/> class.
     /// </summary>
     /// <param name="factory">The shared API host factory provided by xUnit.</param>
-    public ApiVersioningTests(WebApplicationFactory<Program> factory)
+    public ApiVersioningTests(LastHourApiFactory factory)
     {
         _factory = factory;
     }

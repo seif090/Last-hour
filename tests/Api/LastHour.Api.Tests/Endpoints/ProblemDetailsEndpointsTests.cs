@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using LastHour.Api.Tests.Support;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LastHour.Api.Tests.Endpoints;
@@ -10,7 +11,7 @@ namespace LastHour.Api.Tests.Endpoints;
 /// details response without leaking internal details.
 /// </summary>
 [Collection("ApiEndpoints")]
-public class ProblemDetailsEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
+public class ProblemDetailsEndpointsTests : IClassFixture<LastHourApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -18,7 +19,7 @@ public class ProblemDetailsEndpointsTests : IClassFixture<WebApplicationFactory<
     /// Initializes a new instance of the <see cref="ProblemDetailsEndpointsTests"/> class.
     /// </summary>
     /// <param name="factory">The shared API host factory provided by xUnit.</param>
-    public ProblemDetailsEndpointsTests(WebApplicationFactory<Program> factory)
+    public ProblemDetailsEndpointsTests(LastHourApiFactory factory)
     {
         _factory = factory;
     }

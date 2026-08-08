@@ -1,4 +1,5 @@
 using System.Net;
+using LastHour.Api.Tests.Support;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LastHour.Api.Tests.RateLimiting;
@@ -9,7 +10,7 @@ namespace LastHour.Api.Tests.RateLimiting;
 /// exceed their configured budget with a problem details response.
 /// </summary>
 [Collection("ApiEndpoints")]
-public class RateLimitingTests : IClassFixture<WebApplicationFactory<Program>>
+public class RateLimitingTests : IClassFixture<LastHourApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
@@ -17,7 +18,7 @@ public class RateLimitingTests : IClassFixture<WebApplicationFactory<Program>>
     /// Initializes a new instance of the <see cref="RateLimitingTests"/> class.
     /// </summary>
     /// <param name="factory">The shared API host factory provided by xUnit.</param>
-    public RateLimitingTests(WebApplicationFactory<Program> factory)
+    public RateLimitingTests(LastHourApiFactory factory)
     {
         _factory = factory;
     }

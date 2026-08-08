@@ -106,9 +106,23 @@ Infrastructure     Modules/*
    Api  ---->  all building blocks + all modules
 ```
 
-## Sprint 00.1 status
+## Sprint status
 
-Foundation + hardening complete — empty class libraries + xUnit scaffolds,
-enterprise quality gates in place. No entities, no authentication, no module
-wiring, no business logic. See `.ai/context/current-state.md` for the live
-status.
+- **Sprint 00.1 — Foundation:** complete. Enterprise quality gates (CPM,
+  StyleCop, warnings-as-errors, nullable), Serilog, API versioning, output
+  caching, rate limiting, correlation IDs, problem details, Docker, CI.
+- **Sprint 00.5 — Infrastructure Foundation:** complete. `LastHourDbContext`
+  with conventions/interceptors, EF Core 9 options wiring, unit of work,
+  repositories, transactional outbox, idempotent seeding, health checks
+  (postgres/disk/memory/redis), and the `AddLastHourInfrastructure` composition
+  root. See `docs/INFRASTRUCTURE.md` and `.ai/context/current-state.md` for the
+  live status.
+- **Sprint 00.6 — Security, Observability & Runtime Infrastructure:** complete.
+  Serilog enrichment + JSON file sink, correlation ids, per-request structured
+  logging, OpenTelemetry (OTLP/console), tag-based liveness/readiness health
+  checks, security headers (CSP/HSTS), forwarded headers, config-driven CORS,
+  environment-backed secrets, Kestrel request limits, a dedicated audit trail,
+  startup validation for every options section, and a performance review. See
+  `docs/RUNTIME_HARDENING.md`.
+
+No business modules or authentication are wired yet.

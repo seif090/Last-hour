@@ -3,8 +3,15 @@ using LastHour.Api.Compression;
 using LastHour.Api.DependencyInjection;
 using LastHour.Api.Endpoints;
 using LastHour.Api.Middleware;
+using LastHour.Api.Observability.Auditing;
+using LastHour.Api.Observability.Logging;
+using LastHour.Api.Observability.RequestLogging;
 using LastHour.Api.OpenApi;
 using LastHour.Api.RateLimiting;
+using LastHour.Api.Secrets;
+using LastHour.Api.Security.Cors;
+using LastHour.Api.Security.ForwardedHeaders;
+using LastHour.Api.Security.SecurityHeaders;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -15,11 +22,9 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Host.UseSerilog((context, services, configuration) =>
-        configuration
-            .ReadFrom.Configuration(context.Configuration)
-            .ReadFrom.Services(services)
-            .Enrich.FromLogContext());
+    builder.Host.UseLastHourSerilog();
+
+    builder.Configuration.AddLastHourSecrets();
 
     builder.Services.AddLastHourApi(builder.Configuration);
 
@@ -32,9 +37,13 @@ try
         app.UseLastHourSwagger();
     }
 
+    app.UseLastHourForwardedHeaders();
     app.UseHttpsRedirection();
+    app.UseLastHourSecurityHeaders();
+    app.UseLastHourCors();
     app.UseLastHourResponseCompression();
-    app.UseSerilogRequestLogging();
+    app.UseLastHourRequestLogging();
+    app.UseLastHourAuditLogging();
     app.UseRouting();
     app.UseLastHourRateLimiting();
     app.UseLastHourOutputCache();

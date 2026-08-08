@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+
 namespace LastHour.Api.Middleware;
 
 /// <summary>
@@ -10,11 +12,19 @@ public static class MiddlewareExtensions
     /// Registers the middleware components used by the request pipeline.
     /// </summary>
     /// <param name="services">The service collection to register into.</param>
+    /// <param name="configuration">The application configuration used to bind options.</param>
     /// <returns>The same service collection, so calls can be chained.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="services"/> is <see langword="null"/>.</exception>
-    public static IServiceCollection AddLastHourMiddleware(this IServiceCollection services)
+    /// <exception cref="ArgumentNullException"><paramref name="services"/> or <paramref name="configuration"/>
+    /// is <see langword="null"/>.</exception>
+    public static IServiceCollection AddLastHourMiddleware(this IServiceCollection services, IConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        services.AddOptions<CorrelationIdOptions>()
+            .Bind(configuration.GetSection(CorrelationIdOptions.SectionName))
+            .ValidateOnStart();
+        services.AddSingleton<IValidateOptions<CorrelationIdOptions>, CorrelationIdOptionsValidator>();
 
         services.AddScoped<CorrelationIdMiddleware>();
 
