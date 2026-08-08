@@ -1,6 +1,7 @@
 using LastHour.BuildingBlocks.Infrastructure.Performance;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace LastHour.BuildingBlocks.Infrastructure.DependencyInjection;
 
@@ -23,7 +24,12 @@ public static class PerformanceBehaviorServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        return services.Configure<PerformanceBehaviorOptions>(configuration.GetSection(PerformanceBehaviorOptions.SectionName));
+        services.AddOptions<PerformanceBehaviorOptions>()
+            .Bind(configuration.GetSection(PerformanceBehaviorOptions.SectionName))
+            .ValidateOnStart();
+        services.AddSingleton<IValidateOptions<PerformanceBehaviorOptions>, PerformanceBehaviorOptionsValidator>();
+
+        return services;
     }
 
     /// <summary>

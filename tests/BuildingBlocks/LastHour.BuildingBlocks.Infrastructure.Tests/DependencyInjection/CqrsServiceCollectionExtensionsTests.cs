@@ -97,5 +97,14 @@ public class CqrsServiceCollectionExtensionsTests
     {
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => Task.FromResult(1);
+
+        public Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+            => Task.CompletedTask;
+
+        public Task CommitTransactionAsync(CancellationToken cancellationToken = default)
+            => Task.CompletedTask;
+
+        public Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
+            => Task.CompletedTask;
     }
 }
